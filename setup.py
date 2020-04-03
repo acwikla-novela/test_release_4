@@ -1,4 +1,4 @@
-version = '0.1.011'
+version = '0.1.013'
 print(version)
 
 
@@ -10,8 +10,9 @@ setup(
     version=version,
     author='Aleksander Cwikla',
     url="https://github.com/acwikla-novela/test_release_4",
-    packages=find_packages(),
+    packages=['dir_to_include'],
     description='TestingHowToAutomateRelease',
     platforms='Posix; MacOS X; Windows',
     python_requires='==3.7.4',
+    data_files=['LICENSE', 'meta.yml']
 )

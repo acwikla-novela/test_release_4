@@ -6,9 +6,7 @@ package:
   version: {{ data.get('version') }}
 
 source:
-  - path: setup.py
-  - path: ./dir_to_include
-  - path: LICENSE
+  path: .
 
 build:
   number: 0
