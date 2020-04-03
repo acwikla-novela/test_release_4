@@ -1,0 +1,26 @@
+{% set data = load_setup_py_data() %}
+
+
+package:
+  name: fldatamigration
+  version: {{ data.get('version') }}
+
+source:
+  git_url: https://github.com/NovelaNeuro/fldatamigration
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - python=3.7.4
+    - pip
+    - setuptools
+
+  run:
+    - python=3.7.4
+
+about:
+  home: https://github.com/NovelaNeuro/fldatamigration
+  license: "Apache 2.0"
+  summary: "Tool used to transform data stored in SpikeGadgets raw files into nwb files"
