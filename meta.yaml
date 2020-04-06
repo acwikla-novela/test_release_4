@@ -5,6 +5,9 @@ package:
   name: test_release_4
   version: {{ data.get('version') }}
 
+source:
+  path: ../test_release_4
+
 build:
   number: 0
 
