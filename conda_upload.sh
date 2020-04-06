@@ -11,16 +11,16 @@ conda build . || exit 1
 export CONDA_BUILD_PATH=/home/travis/miniconda/envs/test-environment/conda-bld
 
 echo "Move conda package..."
-mv ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2  ${CONDA_BUILD_PATH}
+mv ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2  ${CONDA_BUILD_PATH} || exit 1
 
 echo "Making new_tar dir..."
-mkdir ${CONDA_BUILD_PATH}/new_tar
+mkdir ${CONDA_BUILD_PATH}/new_tar || exit 1
 
 echo "Extracting conda package..."
 tar -xf ${CONDA_BUILD_PATH}/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C ${CONDA_BUILD_PATH}/new_tar || exit 1
 
 echo "Creating new conda package without some files..."
-tar -cjvf ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude=*.sh ${CONDA_BUILD_PATH}/new_tar/info ${CONDA_BUILD_PATH}/new_tar/lib || exit 1
+tar -cjvf ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude='*.sh' ${CONDA_BUILD_PATH}/new_tar/info ${CONDA_BUILD_PATH}/new_tar/lib || exit 1
 
 ls ${CONDA_BUILD_PATH}/linux-64/
 
