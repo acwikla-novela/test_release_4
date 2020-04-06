@@ -10,9 +10,13 @@ echo "Building conda package..."
 conda build . || exit 1
 export CONDA_BUILD_PATH=/home/travis/miniconda/envs/test-environment/conda-bld
 
-echo "Extracting conda package..."
+echo "Move conda package..."
 mv ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2  ${CONDA_BUILD_PATH}
+
+echo "Making new_tar dir..."
 mkdir ${CONDA_BUILD_PATH}/new_tar
+
+echo "Extracting conda package..."
 tar -xf ${CONDA_BUILD_PATH}/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C ${CONDA_BUILD_PATH}/new_tar || exit 1
 
 echo "Creating new conda package excluding some folders..."
