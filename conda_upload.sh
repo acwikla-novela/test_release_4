@@ -19,6 +19,7 @@ mkdir ${CONDA_BUILD_PATH}/new_tar
 echo "Extracting conda package..."
 tar -xf ${CONDA_BUILD_PATH}/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C ${CONDA_BUILD_PATH}/new_tar || exit 1
 
+ls ${CONDA_BUILD_PATH}/new_tar
 echo "Creating new conda package without some files..."
 tar -cjvf ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude=*.sh ${CONDA_BUILD_PATH}/new_tar/info ${CONDA_BUILD_PATH}/new_tar/Lib || exit 1
 
