@@ -9,6 +9,7 @@ export VERSION=$(python setup.py)
 echo "Building conda package..."
 conda build . || exit 1
 export CONDA_BUILD_PATH=/home/travis/miniconda/envs/test-environment/conda-bld
+export BASE_PATH=$(pwd)
 
 echo "Move conda package..."
 mv ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2  ${CONDA_BUILD_PATH} || exit 1
@@ -19,13 +20,9 @@ mkdir ${CONDA_BUILD_PATH}/new_tar || exit 1
 echo "Extracting conda package..."
 tar -xf ${CONDA_BUILD_PATH}/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C ${CONDA_BUILD_PATH}/new_tar || exit 1
 
-echo "Listing linux-64"
-ls ${CONDA_BUILD_PATH}/linux-64/
-echo "Listing new_tar/info/"
-ls ${CONDA_BUILD_PATH}/new_tar/info/
-
+cd ${CONDA_BUILD_PATH}/new_tar
 echo "Creating new conda package without some files..."
-tar -cjvf ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 ${CONDA_BUILD_PATH}/new_tar/info ${CONDA_BUILD_PATH}/new_tar/lib --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude='*.sh' --exclude='*.gitignore' --exclude='*.pytest_cache'  || exit 1
+tar -cjvf ${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude='*.sh' --exclude='*.gitignore' --exclude='*.pytest_cache' info lib || exit 1
 
 echo "Making testing dir..."
 mkdir ${CONDA_BUILD_PATH}/linux-64/testing || exit 1
