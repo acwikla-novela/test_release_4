@@ -25,6 +25,9 @@ echo "Creating new conda package without some files..."
 tar -cjvf ${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude='*.sh' --exclude='*.gitignore' --exclude='*.pytest_cache' info lib || exit 1
 
 cd ..
+
+echo "Move conda package to linux dir..."
+mv new_tar/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 linux-64 || exit 1
 echo "Making testing dir..."
 mkdir linux-64/testing || exit 1
 echo "Extracting testing conda package..."
