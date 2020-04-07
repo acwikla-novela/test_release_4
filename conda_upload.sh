@@ -24,19 +24,21 @@ cd ${CONDA_BUILD_PATH}/new_tar
 echo "Creating new conda package without some files..."
 tar -cjvf ${PKG_NAME}-${VERSION}-py37_0.tar.bz2 --exclude=info/recipe/dir_to_exclude --exclude=info/recipe/test --exclude='*.sh' --exclude='*.gitignore' --exclude='*.pytest_cache' info lib || exit 1
 
+cd ..
 echo "Making testing dir..."
-mkdir ${CONDA_BUILD_PATH}/linux-64/testing || exit 1
+mkdir linux-64/testing || exit 1
 echo "Extracting testing conda package..."
-tar xf ${CONDA_BUILD_PATH}/linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C ${CONDA_BUILD_PATH}/linux-64/testing || exit 1
+tar xf linux-64/${PKG_NAME}-${VERSION}-py37_0.tar.bz2 -C linux-64/testing || exit 1
 echo "Listing linux-64/testing"
-ls ${CONDA_BUILD_PATH}/linux-64/testing
+ls linux-64/testing
 echo "Listing linux-64/testing/info"
-ls ${CONDA_BUILD_PATH}/linux-64/testing/info
+ls linux-64/testing/info
 echo "Listing linux-64/testing/info/recipe"
-ls ${CONDA_BUILD_PATH}/linux-64/testing/info/recipe
+ls linux-64/testing/info/recipe
 echo "Listing linux-64/testing/lib"
-ls ${CONDA_BUILD_PATH}/linux-64/testing/lib
+ls linux-64/testing/lib
 
+cd ${BASE_PATH}
 echo "Converting conda package..."
 conda convert --platform osx-64 $CONDA_BUILD_PATH/linux-64/***.tar.bz2 --output-dir $CONDA_BUILD_PATH || exit 1
 conda convert --platform linux-32 $CONDA_BUILD_PATH/linux-64/***.tar.bz2 --output-dir $CONDA_BUILD_PATH -q || exit 1
